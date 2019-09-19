@@ -1,4 +1,4 @@
-* linguist-langueage=csharp 
+*.javascript linguist-langueage=csharp 
 
 #*.csharp linguist-detectable=true  
 #*.java linguist-detectable=false  
