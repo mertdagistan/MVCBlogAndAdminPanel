@@ -1,0 +1,724 @@
+﻿@using MVCBlog.Entity.Models
+@using MVCBlog.Repository.ModelRepository
+
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie ie6 ie-lt10 ie-lt9 ie-lt8 ie-lt7 no-js" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7 ie-lt10 ie-lt9 ie-lt8 no-js" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8 ie-lt10 ie-lt9 no-js" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9 ie-lt10 no-js" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<!-- the "no-js" class is for Modernizr. -->
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- Important stuff for SEO, don't neglect. (And don't dupicate values across your site!) -->
+    <title>@ViewBag.Title</title>
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+
+    <!-- Don't forget to set your site up: http://google.com/webmasters -->
+    <meta name="google-site-verification" content="" />
+    <meta name="Copyright" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
+    <!-- concatenate and minify for production -->
+    <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="~/Content/css/bootstrap.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="~/Content/css/mediaelementplayer.css" />
+    <link rel="stylesheet" href="~/Content/css/animate.min.css" type="text/css" media="all" />
+
+    <link rel="stylesheet" href="~/Content/css/magnific-popup.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="~/Content/css/icon-fonts.css" type="text/css" media="all" />
+
+
+</head>
+
+<!-- Class ( site_boxed - dark - preloader1 - preloader2 - preloader3 - light_header - dark_sup_menu - menu_button_mode - transparent_header - header_on_side ) -->
+
+<body class="preloader3 light_header">
+    <div id="preloader">
+        <div class="spinner">
+            <div class="sk-dot1"></div>
+            <div class="sk-dot2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+
+    <div id="main_wrapper">
+        <header id="site_header">
+            <div class="topbar">
+                <!-- class ( topbar_colored  ) -->
+                <div class="content clearfix">
+
+                    <div class="top_details clearfix f_left">
+                        <div class="languages-select languages-drop">
+                            <span><i class="ico-globe4"></i><span>English</span></span>
+                            <div class="languages-panel">
+                                <ul class="languages-panel-con">
+                                    <li class="active"><a href="#">English <i class="ico-check lang_checked"></i></a></li>
+                                    <li><a href="#">RTL</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span class="top_login">
+                                <i class="icon ico-key3"></i><a class="" href="/Admin/Admin/LogOut">LogOut</a>
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="top_login">
+                                <i class="icon ico-key3"></i><a class="popup-with-move-anim" href="#login-popup">Login</a>
+                            </span>
+                        }
+                        <div class="zoom-anim-dialog small-dialog mfp-hide login_popup" id="login-popup">
+
+
+
+
+
+
+                            <form class="login_form_colored" action="/Admin/Admin/Login" method="post">
+                                <div class="lfc_user_row">
+                                    <span class="lfc_header">Login to your Account</span>
+                                </div>
+                                <div class="lfc_user_row">
+                                    <label for="login_user_name">
+                                        <span class="lfc_alert"></span>
+                                        <i class="lfc_icon ico-user5"></i>
+                                        <input type="text" name="EMail" id="EMail">
+                                    </label>
+                                </div>
+                                <div class="lfc_user_row">
+                                    <label for="login_password">
+                                        <span class="lfc_alert"></span>
+                                        <i class="lfc_icon ico-key3"></i>
+                                        <input type="password" name="Password" id="Password">
+                                    </label>
+                                </div>
+                                <div class="lfc_user_row clearfix">
+                                    <div class="my_col_half">
+                                        <label for="rememberme">
+                                            <span class="remember-box">
+                                                <input type="checkbox" id="rememberme" name="rememberme">
+                                                <span>Remember me</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="my_col_half clearfix">
+                                        <button type="submit" name="login" class="send_button f_right upper">
+                                            Sign in
+                                        </button>
+                                    </div>
+                                </div>
+                                <a class="lfc_forget_pass" href="#">Forgot Your Password?</a>
+                            </form>
+
+
+
+
+                        </div>
+                        <span><i class="icon ico-mail5"></i><span class="title">E-Mail :</span> xxxxxxxxxxxxx@xxxxxx.com</span>
+                    </div>
+
+                    <div class="top-socials box_socials f_right">
+                        <a href="#" target="_blank">
+                            <span class="soc_name">GitHub</span>
+                            <span class="soc_icon_bg"></span>
+                            <i class="ico-github2"></i>
+                        </a>
+
+                        <a href="#" target="_blank">
+                            <span class="soc_name">Google+</span>
+                            <span class="soc_icon_bg"></span>
+                            <i class="ico-google-plus"></i>
+                        </a>
+
+                        <a href="#" target="_blank">
+                            <span class="soc_name">LinkedIn</span>
+                            <span class="soc_icon_bg"></span>
+                            <i class="ico-linkedin3"></i>
+                        </a>
+
+                    </div>
+                </div>
+                <!-- End content -->
+                <span class="top_expande not_expanded">
+                    <i class="no_exp ico-angle-double-down"></i>
+                    <i class="exp ico-angle-double-up"></i>
+                </span>
+            </div>
+            <!-- End topbar -->
+
+            <div id="navigation_bar">
+                <div class="content">
+
+
+                    <!-- Top Card -->
+                    <!-- End Top Card -->
+                    <!-- Top Search -->
+                    <form class="top_search clearfix small_top_search">
+                        <div class="top_search_con">
+                            <input type="text" class="s" placeholder="Search Here ...">
+                            <span class="top_search_icon"><i class="ico-search4"></i></span>
+                            <input type="submit" class="top_search_submit">
+                        </div>
+                    </form>
+                    <!-- End Top Search -->
+                    <nav id="main_nav">
+                        <div id="nav_menu">
+                            <span class="mobile_menu_trigger">
+                                <a href="#" class="nav_trigger"><span></span></a>
+                            </span>
+                            <ul id="navy" class="clearfix">
+                                <li class="normal_menu mobile_menu_toggle current_page_item">
+                                    <a href="index.html"><span>Home</span></a>
+                                    <ul>
+                                        <li class="normal_menu"><a href="index.html">Home Page V1</a></li>
+                                        <li class="normal_menu"><a href="index2.html">Home Page V2</a></li>
+                                        <li class="normal_menu"><a href="index3.html">Home Page V3</a></li>
+                                        <li class="normal_menu"><a href="index4.html">Home Page V4</a></li>
+                                        <li class="normal_menu"><a href="index5.html">Home Page V5</a></li>
+                                        <li class="normal_menu">
+                                            <a href="index-one-page1.html">Home One Page </a>
+                                            <ul>
+                                                <li class="normal_menu"><a href="index-one-page1.html">Home One Page V1</a></li>
+                                                <li class="normal_menu"><a href="index-one-page2.html">Home One Page V2</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="normal_menu">
+                                            <a href="index-blog-timeline.html">Home Blog </a>
+                                            <ul>
+                                                <li class="normal_menu"><a href="index-blog-timeline.html">Home Blog Timeline</a></li>
+                                                <li class="normal_menu"><a href="index-blog-masonry.html">Home Blog Masonry</a></li>
+                                                <li class="normal_menu"><a href="index-blog-list.html">Home Blog List</a></li>
+                                                <li class="normal_menu"><a href="index-blog-standard.html">Home Blog Standard</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="normal_menu">
+                                            <a href="index-header-side.html">Home With Side Menu</a>
+                                            <ul>
+                                                <li class="normal_menu"><a href="index-header-side-boxed.html">Home Boxed With Side Menu</a></li>
+                                                <li class="normal_menu"><a href="index-header-side.html">Home Full With Side Menu</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="normal_menu">
+                                            <a href="index-header-transparent-dark.html">Home Transparent Header</a>
+                                            <ul>
+                                                <li class="normal_menu"><a href="index-header-transparent-dark.html">Home Transparent Dark</a></li>
+                                                <li class="normal_menu"><a href="index-header-transparent-light.html">Home Transparent Light</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="normal_menu"><a href="index-menu-button-mode.html">Home Menu Button Mode</a></li>
+                                    </ul>
+                                </li>
+                                <li class="normal_menu mobile_menu_toggle">
+                                    <a href="#"><span>Pages</span></a>
+                                    <ul>
+                                        <li class="normal_menu"><a href="page-about-us.html">About Us</a></li>
+                                        <li class="normal_menu"><a href="page-about-me.html">About Me</a></li>
+                                        <li class="normal_menu"><a href="page-team-members.html">Team Members</a></li>
+                                        <li class="normal_menu"><a href="page-services.html">Services</a></li>
+                                        <li class="normal_menu">
+                                            <a href="#">Portfolio</a>
+                                            <ul>
+                                                <li class="normal_menu">
+                                                    <a href="#">Portfolio Filter</a>
+                                                    <ul>
+                                                        <li class="normal_menu">
+                                                            <a href="#">Filter Style 1</a>
+                                                            <ul>
+                                                                <li class="normal_menu"><a href="portfolio-style1-3column-boxed.html">Three Columns Boxed</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style1-3column-boxed-nospaces.html">Three Columns Boxed2</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style1-3column-fullwidth.html">Three Columns Fullwidth</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style1-3column-fullwidth-nospaces.html">Three Columns Fullwidth2</a></li>
+
+                                                                <li class="normal_menu"><a href="portfolio-style1-4column-boxed.html">Four Columns Boxed</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style1-4column-boxed-nospaces.html">Four Columns Boxed2</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style1-4column-fullwidth.html">Four Columns Fullwidth</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style1-4column-fullwidth-nospaces.html">Four Columns Fullwidth2</a></li>
+
+                                                                <li class="normal_menu"><a href="portfolio-style1-2column-boxed.html">Two Columns Boxed</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style1-2column-boxed-nospaces.html">Two Columns Boxed2</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style1-2column-fullwidth.html">Two Columns Fullwidth</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style1-2column-fullwidth-nospaces.html">Two Columns Fullwidth2</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="normal_menu">
+                                                            <a href="#">Filter Style 2</a>
+                                                            <ul>
+                                                                <li class="normal_menu"><a href="portfolio-style2-3column-boxed.html">Three Columns Boxed</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style2-3column-boxed-nospaces.html">Three Columns Boxed2</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style2-3column-fullwidth.html">Three Columns Fullwidth</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style2-3column-fullwidth-nospaces.html">Three Columns Fullwidth2</a></li>
+
+                                                                <li class="normal_menu"><a href="portfolio-style2-4column-boxed.html">Four Columns Boxed</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style2-4column-boxed-nospaces.html">Four Columns Boxed2</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style2-4column-fullwidth.html">Four Columns Fullwidth</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style2-4column-fullwidth-nospaces.html">Four Columns Fullwidth2</a></li>
+
+                                                                <li class="normal_menu"><a href="portfolio-style2-2column-boxed.html">Two Columns Boxed</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style2-2column-boxed-nospaces.html">Two Columns Boxed2</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style2-2column-fullwidth.html">Two Columns Fullwidth</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style2-2column-fullwidth-nospaces.html">Two Columns Fullwidth2</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="normal_menu">
+                                                            <a href="#">Filter Style 3</a>
+                                                            <ul>
+                                                                <li class="normal_menu"><a href="portfolio-style3-3column-boxed.html">Three Columns Boxed</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style3-3column-boxed-nospaces.html">Three Columns Boxed2</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style3-3column-fullwidth.html">Three Columns Fullwidth</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style3-3column-fullwidth-nospaces.html">Three Columns Fullwidth2</a></li>
+
+                                                                <li class="normal_menu"><a href="portfolio-style3-4column-boxed.html">Four Columns Boxed</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style3-4column-boxed-nospaces.html">Four Columns Boxed2</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style3-4column-fullwidth.html">Four Columns Fullwidth</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style3-4column-fullwidth-nospaces.html">Four Columns Fullwidth2</a></li>
+
+                                                                <li class="normal_menu"><a href="portfolio-style3-2column-boxed.html">Two Columns Boxed</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style3-2column-boxed-nospaces.html">Two Columns Boxed2</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style3-2column-fullwidth.html">Two Columns Fullwidth</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-style3-2column-fullwidth-nospaces.html">Two Columns Fullwidth2</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="normal_menu">
+                                                    <a href="#">Portfolio Masonry</a>
+                                                    <ul>
+                                                        <li class="normal_menu">
+                                                            <a href="#">Masonry Style 1</a>
+                                                            <ul>
+                                                                <li class="normal_menu"><a href="portfolio-masonry-style1-fullwidth.html">Masonry Fullwidth</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-masonry-style1-boxed.html">Masonry Boxed</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-masonry-style1-columns.html">Masonry Columns</a></li>
+                                                            </ul>
+                                                        </li>
+
+                                                        <li class="normal_menu">
+                                                            <a href="#">Masonry Style 2</a>
+                                                            <ul>
+                                                                <li class="normal_menu"><a href="portfolio-masonry-style2-fullwidth.html">Masonry Fullwidth</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-masonry-style2-boxed.html">Masonry Boxed</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-masonry-style2-columns.html">Masonry Columns</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="normal_menu">
+                                                            <a href="#">Masonry Style 3</a>
+                                                            <ul>
+                                                                <li class="normal_menu"><a href="portfolio-masonry-style3-fullwidth.html">Masonry Fullwidth</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-masonry-style3-boxed.html">Masonry Boxed</a></li>
+                                                                <li class="normal_menu"><a href="portfolio-masonry-style3-columns.html">Masonry Columns</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="normal_menu">
+                                                    <a href="#">Portfolio Single</a>
+                                                    <ul>
+                                                        <li class="normal_menu"><a href="portfolio-single-gallery.html">Photo Gallery</a></li>
+                                                        <li class="normal_menu"><a href="portfolio-single-video.html">Video Project</a></li>
+                                                        <li class="normal_menu"><a href="portfolio-single-image.html">Image Project</a></li>
+                                                        <li class="normal_menu"><a href="portfolio-single-sound.html">Audio Project</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="normal_menu"><a href="page-contact-us.html">Contact Us</a></li>
+                                        <li class="normal_menu"><a href="page-faq.html">FAQ</a></li>
+                                        <li class="normal_menu"><a href="page-careers.html">Careers</a></li>
+                                        <li class="normal_menu"><a href="page-404.html">404</a></li>
+                                        <li class="normal_menu"><a href="page-coming-soon.html">Coming Soon</a></li>
+                                        <li class="normal_menu"><a href="page-under-construction.html">Under Structure</a></li>
+                                        <li class="normal_menu"><a href="page-sitemap.html">sitemap</a></li>
+                                        <li class="normal_menu">
+                                            <a href="page-login-register.html">Register/Login</a>
+                                            <ul>
+                                                <li class="normal_menu">
+                                                    <a href="page-login-register.html">Register/Login Style 1</a>
+                                                </li>
+                                                <li class="normal_menu">
+                                                    <a href="page-login-register2.html">Register/Login Style 2</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="normal_menu"><a href="portfolio-single-gallery.html">Project Details</a></li>
+                                        <li class="normal_menu"><a href="#"><span class="menu_special_color">More Pages Soon ...</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="normal_menu mobile_menu_toggle">
+                                    <a href="#"><span>Sliders</span></a>
+                                    <ul>
+                                        <li class="normal_menu">
+                                            <a href="slider-revolution-fullwidth.html"><i class="menu_icon ico-heart4"></i>Revolution Slider</a>
+                                            <ul>
+                                                <li class="normal_menu"><a href="slider-revolution-fullscreen.html">Fullscreen</a></li>
+                                                <li class="normal_menu"><a href="slider-revolution-fullwidth.html">Full Width</a></li>
+                                                <li class="normal_menu"><a href="slider-revolution-boxed-fullwidth.html">Boxed FullWidth</a></li>
+                                                <li class="normal_menu"><a href="slider-revolution-boxed-fullscreen.html">Boxed FullScreen</a></li>
+                                                <li class="normal_menu"><a href="slider-revolution-panzoom-fullscreen.html">Panzoom FullScreen</a></li>
+                                                <li class="normal_menu"><a href="slider-revolution-panzoom-fullwidth.html">Panzoom FullWidth</a></li>
+                                                <li class="normal_menu"><a href="slider-revolution-html-video-fullwidth.html">HTML5 Video FullWidth</a></li>
+                                                <li class="normal_menu"><a href="slider-revolution-html-video-fullscreen.html">HTML5 Video FullScreen</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="normal_menu">
+                                            <a href="slider-flex-fullwidth.html"><i class="menu_icon  ico-image4"></i>Flex slider</a>
+                                            <ul>
+                                                <li class="normal_menu"><a href="slider-flex-fullwidth.html">Full Width</a></li>
+                                                <li class="normal_menu"><a href="slider-flex-boxed.html">Boxed Width</a></li>
+                                                <li class="normal_menu"><a href="slider-flex-fullwidth-without-thumbs.html">Full Width No Thumbs</a></li>
+                                                <li class="normal_menu"><a href="slider-flex-boxed-without-thumbs.html">Boxed Width No Thumbs</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="normal_menu">
+                                            <a href="slider-owl-default.html"><i class="menu_icon ico-eye4"></i>Owl slider</a>
+                                            <ul>
+                                                <li class="normal_menu"><a href="slider-owl-default.html">Defailt Slider</a></li>
+                                                <li class="normal_menu"><a href="slider-owl-portfolio.html">Portfolio Slider</a></li>
+                                                <li class="normal_menu"><a href="slider-owl-features.html">Features Slider</a></li>
+                                                <li class="normal_menu"><a href="slider-owl-text.html">Text Slider</a></li>
+                                                <li class="normal_menu"><a href="slider-owl-products.html">Products Slider</a></li>
+                                                <li class="normal_menu"><a href="slider-owl-gallery.html">Gallery Slider</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="normal_menu">
+                                            <a href="slider-camera-fullwidth.html"><i class="menu_icon ico-camera4"></i>Camera Slider</a>
+                                            <ul>
+                                                <li class="normal_menu"><a href="slider-camera-fullwidth.html">Full Width</a></li>
+                                                <li class="normal_menu"><a href="slider-camera-fullwidth-with-thums.html">Full Width Thumbs</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="normal_menu"><a href="slider-scattered.html"><i class="menu_icon ico-monitor2"></i>Scattered Slider</a></li>
+                                        <li class="normal_menu"><a href="slider-wobbly.html"><i class="menu_icon ico-trophy3"></i>Wobbly Slider</a></li>
+                                        <li class="normal_menu">
+                                            <a href="#"><i class="menu_icon ico-store"></i>Four Boxes Slider</a>
+                                            <ul>
+                                                <li class="normal_menu"><a href="slider-four-boxes-effect-1.html">Effect 1</a></li>
+                                                <li class="normal_menu"><a href="slider-four-boxes-effect-2.html">Effect 2</a></li>
+                                                <li class="normal_menu"><a href="slider-four-boxes-effect-3.html">Effect 3</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="normal_menu"><a href="#"><span class="menu_special_color">More Sliders Soon ...</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_mega_menu mobile_menu_toggle">
+                                    <a href="#"><span>Shortcodes</span></a>
+                                    <ul class="mega_menu">
+                                        <li>
+                                            <a href="#">Sliders</a>
+                                            <ul class="mega_menu_in clearfix">
+                                                <li>
+                                                    <a href="#">Revolution slider</a>
+                                                    <ul class="clearfix">
+                                                        <li>
+                                                            <a href="#">Default</a>
+                                                            <ul class="clearfix">
+                                                                <li><a href="slider-revolution-fullscreen.html">Default Fullscreen</a></li>
+                                                                <li><a href="slider-revolution-fullwidth.html">Default Full Width</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Boxed</a>
+                                                            <ul class="clearfix">
+                                                                <li><a href="slider-revolution-boxed-fullwidth.html">Boxed FullWidth</a></li>
+                                                                <li><a href="slider-revolution-boxed-fullscreen.html">Boxed FullScreen</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Panzoom</a>
+                                                            <ul class="clearfix">
+                                                                <li><a href="slider-revolution-panzoom-fullscreen.html">Panzoom FullScreen</a></li>
+                                                                <li><a href="slider-revolution-panzoom-fullwidth.html">Panzoom FullWidth</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">HTML5 Video</a>
+                                                            <ul class="clearfix">
+                                                                <li><a href="slider-revolution-html-video-fullwidth.html">HTML5 Video FullWidth</a></li>
+                                                                <li><a href="slider-revolution-html-video-fullscreen.html">HTML5 Video FullScreen</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Flex slider</a>
+                                                    <ul class="clearfix">
+                                                        <li>
+                                                            <a href="slider-flex-fullwidth.html">Full Width</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="slider-flex-boxed.html ">Boxed Width</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="slider-flex-fullwidth-without-thumbs.html">Full Width No Thumbs</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="slider-flex-boxed-without-thumbs.html">Boxed Width No Thumbs</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Owl slider</a>
+                                                    <ul class="clearfix">
+                                                        <li>
+                                                            <a href="slider-owl-default.html">Defailt Slider</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="slider-owl-portfolio.html">Portfolio Slider</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="slider-owl-features.html">Features Slider</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="slider-owl-text.html">Text Slider</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="slider-owl-products.html">Products Slider</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="slider-owl-gallery.html">Gallery Slider</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="slider-scattered.html">Scattered Slider</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Four Boxes Slider</a>
+                                                    <ul class="clearfix">
+                                                        <li>
+                                                            <a href="slider-four-boxes-effect-1.html">Effect 1</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="slider-four-boxes-effect-2.html">Effect 2</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="slider-four-boxes-effect-3.html">Effect 3</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="slider-wobbly.html">Wobbly Slider</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Camera Slider</a>
+                                                    <ul class="clearfix">
+                                                        <li>
+                                                            <a href="slider-camera-fullwidth.html">Full Width</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="slider-camera-fullwidth-with-thums.html">Full Width Thumbs</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+
+                                        </li>
+                                        <li>
+                                            <a href="#">Shortcodes Group 1</a>
+                                            <ul class="mega_menu_in clearfix">
+                                                <li><a href="elements-background-video.html">video Background</a></li>
+                                                <li><a href="elements-accordion.html">Accordion</a></li>
+                                                <li><a href="elements-tabs.html">Tabs</a></li>
+                                                <li><a href="elements-banner-text.html">Banner Text</a></li>
+                                                <li><a href="elements-titles-and-headings.html">Titles and Headings</a></li>
+                                                <li><a href="elements-pies-and-skills.html">Pies & Skills</a></li>
+                                                <li><a href="elements-team.html">Team</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">Shortcodes Group 2</a>
+                                            <ul class="mega_menu_in clearfix">
+                                                <li><a href="elements-testimonials.html">Testimonials</a></li>
+                                                <li><a href="elements-clients.html">Clients</a></li>
+                                                <li><a href="elements-counters.html">Counters</a></li>
+                                                <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
+                                                <li><a href="elements-carousel.html">Carousel</a></li>
+                                                <li><a href="elements-buttons.html">Buttons</a></li>
+                                                <li><a href="elements-maps.html">Google Maps</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">Shortcodes Group 3</a>
+                                            <ul class="mega_menu_in clearfix">
+                                                <li><a href="elements-galleries.html">Galleries</a></li>
+                                                <li><a href="elements-tooltip.html">Tooltip</a></li>
+                                                <li><a href="elements-tables.html">Tables</a></li>
+                                                <li><a href="elements-charts.html">Charts</a></li>
+                                                <li><a href="elements-lightbox.html">Lightbox</a></li>
+                                                <li><a href="elements-pricing-tables.html">Pricing Tables</a></li>
+                                                <li><a href="elements-features.html">Features</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <!-- End Nav -->
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </header>
+        <!-- End Main Header -->
+        <!-- Page Title -->
+        <!-- End Page Title -->
+        <!-- News Bar -->
+        <!-- End News Bar -->
+        <!-- Our Blog Grids -->
+        <section class="content_section">
+            <div class="content row_spacer">
+                <div class="main_title centered upper">
+                    <h2><span class="line"><i class="ico-pencil2"></i></span>Blog Name</h2>
+                </div>
+
+                <!-- All Content -->
+                <div class="content_spacer clearfix">
+                    <div class="content_block col-md-9 f_left">
+                        @RenderBody()
+                        <!-- End blog List -->
+                        <!-- Pagination -->
+                        <!-- End Pagination -->
+                    </div>
+                    <!-- End Content Block -->
+                    <!-- sidebar -->
+                    <aside id="sidebar" class="col-md-3 right_sidebar">
+
+                        <!-- Products Slider -->
+                        <div class="widget_block">
+                            <h6 class="widget_title">Search</h6>
+                            <div class="search_block">
+                                <form action="" method="get" class="widget_search">
+                                    <input type="search" placeholder="Start Searching..." id="s" name="s" class="serch_input">
+                                    <button class="search_btn" id="searchsubmit" type="submit">
+                                        <i class="ico-search2"></i>
+                                    </button>
+                                    <div class="clear"></div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <!-- End Products Slider -->
+                        <div class="widget_block">
+                            <div class="hm-tabs tabs1">
+                                <nav>
+                                    <center>
+                                        <ul class="tabs-navi">
+                                            <li><a data-content="inbox" class="selected" href="#"><span></span>Popular Articles</a></li>
+
+                                        </ul>
+                                    </center>
+                                </nav>
+
+                                <ul class="tabs-body">
+                                    <li data-content="inbox" class="selected">
+                                        @{
+                                            ArticleRepository repoArt = new ArticleRepository();
+                                            foreach (Article item in repoArt.PopularList().ProcessResult)
+                                            {
+                                                <ul class="posts_widget_list2">
+                                                    <li class="clearfix" style="border-bottom:1px solid #d6d5d5;margin-bottom: 10px;padding-bottom: 10px">
+                                                        <a href="#">
+                                                            
+                                                            <span>@item.Title</span>
+                                                        </a>
+                                                        <span class="post_date"><i class="ico-comments-o"></i>@item.Comments.Count()</span>
+                                                    </li>
+                                                </ul>
+                                            }
+                                        }
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="hm-tabs tabs1">
+                                <nav>
+                                    <center>
+                                        <ul class="tabs-navi">
+                                            <li><a data-content="inbox" class="selected" href="#"><span></span>Recent Articles</a></li>
+
+                                        </ul>
+                                    </center>
+                                </nav>
+
+                                <ul class="tabs-body">
+                                    <li data-content="inbox" class="selected">
+                                        @{
+                                            ArticleRepository repoArtt = new ArticleRepository();
+                                            foreach (Article item in repoArtt.RecentList().ProcessResult)
+                                            {
+                                                <ul class="posts_widget_list2">
+                                                    <li class="clearfix" style="border-bottom:1px solid #d6d5d5;margin-bottom: 10px;padding-bottom: 10px">
+                                                        <a href="#">
+                                                            
+                                                            <span>@item.Title</span>
+                                                        </a>
+                                                        <span class="post_date"><i class="ico-comments-o"></i>@item.Comments.Count()</span>
+                                                    </li>
+                                                </ul>
+                                            }
+                                        }
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Categories -->
+                        <div class="widget_block">
+                            <h6 class="widget_title">Categories</h6>
+                            @{
+                                CategoryRepository repoCat = new CategoryRepository();
+                                foreach (Category item in repoCat.PopularList().ProcessResult)
+                                {
+                                    <ul class="cat_list_widget">
+                                        <li>
+                                            <a href="#">@item.CategoryName</a>
+                                            <span class="num_posts">@item.Articles.Count()</span>
+                                        </li>
+
+                                    </ul>
+                                }
+                            }
+
+                        </div>
+                        <!-- End Categories -->
+                        <!-- Tag Cloud -->
+
+                        <a href="#" class="hm_go_top">Top</a>
+                </div>
+                <!-- End wrapper -->
+
+                <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                <script>
+                    window.jQuery || document.write('<script src="~/Content/js/jquery.js"><\/script>')
+                </script>
+                <script src="~/Content/js/plugins.js"></script>
+
+                <script src="~/Content/js/mediaelement-and-player.min.js"></script>
+                <script src="~/Content/js/isotope.pkgd.min.js"></script>
+                <!-- this is where we put our custom functions -->
+                <script type="text/javascript" src="~/Content/js/functions.js"></script>
+</body>
+
+</html>

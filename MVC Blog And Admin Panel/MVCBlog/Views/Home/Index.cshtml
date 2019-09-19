@@ -1,0 +1,89 @@
+﻿@model IEnumerable<MVCBlog.Entity.Models.Article>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="hm_blog_full_list hm_blog_list clearfix">
+
+    @foreach (var item in Model)
+    {
+        <div class="blog_grid_block clearfix">
+
+            @if (item.MediaUrl != null)
+            {
+                <div class="post_format_con">
+                    <span>
+                        <a href="#">
+                            <i class="ico-image4"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="feature_inner">
+                    <div class="feature_inner_corners">
+                        <a href="@Url.Content("~/Upload/"+@item.MediaUrl)" class="feature_inner_ling" data-rel="magnific-popup">
+                            <img src="@Url.Content("~/Upload/"+@item.MediaUrl)" alt="Post Title">
+                        </a>
+
+                    </div>
+                </div>
+            }
+
+        <div class="blog_grid_con">
+            <h6 class="title"><a href="/Home/Details/@item.Id">@item.Title</a></h6>
+            <span class="meta">
+                <span class="meta_part">
+                    <a href="@item.Id">
+                        <i class="ico-clock7"></i>
+                        <span>@item.CreateDate</span>
+                    </a>
+                </span>
+                <span class="meta_part">
+                    <a href="/Home/Details/@item.Id">
+                        <i class="ico-comment-o"></i>
+                        <span>@item.Comments.Count()</span>
+                    </a>
+                </span>
+                <span class="meta_part">
+                    <a href="/Home/Details/@item.Id">
+                        <i class="ico-eye"></i>
+                        <span>@item.Views.ToString()</span>
+                    </a>
+                </span>
+                <span class="meta_part">
+                    <i class="ico-folder-open-o"></i>
+                    <span>
+                        <a href="#">@item.Category.CategoryName</a>
+                    </span>
+                </span>
+
+            </span>
+            <p>
+                @{string metin = System.Text.RegularExpressions.Regex.Replace(item.Text, @"<(.|\n)*?>", string.Empty); }
+                @Html.Raw(metin.Substring(0,200))
+                @*@Html.Raw(!String.IsNullOrEmpty(item.Text) ? new string(item.Text.Take(50).ToArray()) : item.Text)*@
+                @*@{
+                string text = item.Text.ToString().Substring(0, 10);
+
+                Html.Raw(text);
+        }*@
+                @*@Html.Raw(item.Text.Substring(0,99))*@
+
+            </p>
+
+
+            <a class="btn_a" href="/Home/Details/@item.Id">
+                <span>
+                    <i class="in_left ico-angle-right"></i>
+                    <span>Details</span>
+                    <i class="in_right ico-angle-right"></i>
+                </span>
+            </a>
+        </div>
+        </div>
+    }
+
+
+
+</div>
+

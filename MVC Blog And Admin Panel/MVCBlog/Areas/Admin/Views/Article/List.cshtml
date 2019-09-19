@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MVCBlog.Entity.Models.Article>
+@{
+    ViewBag.Title = "Article Active List";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<center>
+    <div>
+        <h2 style="color:black">Active Article List</h2>
+    </div>
+</center>
+
+<p>
+    <a href="/Admin/Articles/AddArticle" class="btn btn-success ml-1" style="width:110px"><i class="fas fa-plus-circle"></i> Add</a>
+</p>
+<table class="table table-hover" style="color:black">
+    <thead class="thead-dark">
+        <tr>
+            
+            <th scope="col">TITLE</th>
+            <th scope="col">CREAT DATE</th>
+            <th scope="col">Category</th>
+            @*<th scope="col">Tag</th>*@
+            <th scope="col">SETTINGS</th>
+            @*<th scope="col">EDIT</th>
+                <th scope="col">DELETE</th>*@
+            <th scope="col">SHOW</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                
+                <td>
+                    @Html.DisplayFor(t => item.Title)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(t => item.CreateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(t => item.Category.CategoryName)
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Settings
+                        </button>
+                        <center>
+                            <div class="dropdown-menu" style="width:100px !important">                                
+                                <div class="dropdown-divider"></div>
+                                <center><a class="btn btn-warning" style="width:100px" href="/Admin/Article/Edit/@item.Id"><i class="fas fa-edit"></i> Edit</a></center>
+                                <div class="dropdown-divider"></div>
+                                <center><a class="btn btn-danger" style="width:100px" href="/Admin/Article/InActive/@item.Id"><i class="fas fa-trash-alt"></i> Inactive</a></center>
+                            </div>
+                        </center>
+                    </div>
+                </td>
+
+                <td><a class="btn btn-success" style="width: 100px" href="/Admin/Articles/"><i class="fas fa-info-circle"></i>  Show </a></td>
+
+            </tr>
+
+
+        }
+    </tbody>
+</table>

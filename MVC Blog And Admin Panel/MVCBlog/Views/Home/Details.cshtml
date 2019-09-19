@@ -1,0 +1,294 @@
+﻿@using MVCBlog.Entity.ViewModel
+@using MVCBlog.Repository.ModelRepository
+@model MVCBlog.Entity.Models.Article
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script> 
+<script>hljs.initHighlightingOnLoad();</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/an-old-hope.min.css"/>
+
+
+@*<link href="~/Areas/Admin/Content/newckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css" rel="stylesheet">
+<script src="~/Areas/Admin/Content/newckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>*@
+
+@*<script src="highlight.pack.js">
+ 
+<link rel="stylesheet" href="styles/gruvbox-dark.css"> 
+<script>hljs.initHighlightingOnLoad();*@
+
+<div class="content_block col-md-5 ">
+    <div class="hm_blog_full_list hm_blog_list clearfix">
+
+        <!-- Post Container -->
+        <div id="post-1" class="post-1 post type-post status-publish format-gallery has-post-thumbnail category-media tag-photos clearfix">
+            <div class="post_title_con">
+                <h6 class="title"><a href="#">@Model.Title</a></h6>
+                <span class="meta">
+                    <span class="meta_part">
+                        <a href="#">
+                            <i class="ico-clock7"></i>
+                            <span>@Model.CreateDate</span>
+                        </a>
+                    </span>
+                    <span class="meta_part">
+                        <i class="ico-folder-open-o"></i>
+                        <span>
+                            <a href="#">@Model.Category.CategoryName</a>
+                        </span>
+                    </span>
+
+                </span>
+            </div>
+            @if (Model.MediaUrl != null)
+            {
+                <div class="post_format_con">
+                    <span>
+                        <a href="#">
+                            <i class="ico-image4"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="feature_inner">
+                    <div class="feature_inner_corners">
+                        <a href="@Url.Content("~/Upload/"+Model.MediaUrl)" class="feature_inner_ling" data-rel="magnific-popup">
+                            <img src="@Url.Content("~/Upload/"+Model.MediaUrl)" alt="Post Title">
+                        </a>
+                    </div>
+                </div>
+            }
+
+            <div class="blog_grid_con" style="color:black;">
+
+                @Html.Raw(Model.Text)
+
+            </div>
+
+            <!-- Next / Prev and Social Share-->
+            <div class="post_next_prev_con clearfix">
+                <!-- Next and Prev Post-->
+                <div class="post_next_prev clearfix">
+                    <a href="#"><i class="ico-arrow-back"></i><span class="t">Prev</span></a>
+                    <!--<a href="#" class="th_icon" title="All Posts"><i class="ico-apps"></i></a> -->
+                    <a href="#"><span class="t">Next</span><i class="ico-arrow-forward"></i></a>
+                </div>
+                <!-- End Next and Prev Post-->
+                <!-- Social Share-->
+                <!-- End Social Share-->
+            </div>
+            <!-- End Next / Prev and Social Share-->
+            <!-- Tags -->
+            <div class="small_title">
+                <span class="small_title_con">
+                    <span class="s_icon"><i class="ico-tag4"></i></span>
+                    <span class="s_text">Tags</span>
+                </span>
+            </div>
+            <div class="tags_con">
+                <!-- <h6>Tags:</h6> -->
+                <a href="#" rel="tag">Art</a>
+                <a href="#" rel="tag">HTML</a>
+                <a href="#" rel="tag">Articles</a>
+                <a href="#" rel="tag">Audio</a>
+                <a href="#" rel="tag">Wordpress</a>
+            </div>
+            <!-- End Tags -->
+            <!-- About the author -->
+            <!-- End About the author -->
+        </div>
+        <!-- End Post Container -->
+        <!-- Related Posts -->
+        <!-- End Related Posts -->
+        <!-- Comments Container -->
+        <div id="comments" class="comments-area">
+
+
+            <!-- Comments Tree -->
+            <ol class="comments_list clearfix">
+                <div class="small_title">
+                    <span class="small_title_con">
+                        <span class="s_icon"><i class="ico-pencil6"></i></span>
+                        <span class="s_text">Leave A Comment</span>
+                    </span>
+                </div>
+                <!-- Comment -->
+
+                @{
+                    ArticleRepository repoArt = new ArticleRepository();
+                    CategoryRepository repoCat = new CategoryRepository();
+                    CommentRepository repoComment = new CommentRepository();
+                    UserRepository repoUser = new UserRepository();
+                    ReplyRepository repoRep = new ReplyRepository();
+
+
+
+                    List<DetailsViewModel> postModel = (from art in repoArt.List().ProcessResult
+                                                        join com in repoComment.List().ProcessResult on art.Id equals com.Article_ID
+                                                        join user in repoUser.List().ProcessResult on com.User_ID equals user.Id
+                                                        where com.Article_ID == Model.Id
+                                                        select new DetailsViewModel
+                                                        {
+                                                            User = user,
+                                                            Comment = com,
+                                                            Article = art
+
+
+
+                                                        }).OrderBy(x => x.Comment.CommentDate).ToList();
+
+
+                    foreach (var item in postModel)
+                    {
+                        if (item.Comment.Replies.Count == 0)
+                        {
+                            <li class="comment single_comment">
+                                <div class="comment-container comment-box">
+                                    <div class="trees_number">1</div>
+
+                                    <div class="comment_content">
+                                        <h4 class="author_name"><a href="#">@item.Comment.User.FullName</a></h4>
+                                        <span class="comment_meta">
+                                            <a href="#">
+                                                <time datetime="2015-10-01T19:56:36+00:00">@item.Comment.CommentDate</time>
+                                            </a>
+                                        </span>
+                                        <div class="comment_said_text">
+                                            <p>@item.Comment.Text</p>
+                                        </div>
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <a href="#commentform" class="comment-reply-link" clickable-heading">Reply</a>
+                                        }
+
+                                        <form style="display:none" class="comment-form" id="commentform" method="post" action="/Admin/User/AdminReply">
+                                            <input type="text" aria-required="true" size="30" value="@Model.Id" name="Article_ID" id="Article_ID" hidden="hidden">
+                                            <input type="text" aria-required="true" size="30" value="@item.Comment.Id" name="Comment_ID" id="Comment_ID" hidden="hidden">
+                                            <input type="text" aria-required="true" size="30" value="" name="Text" id="Text" style="width:100%">
+
+                                            <p class="form-submit">
+                                                <input class="send_button" type="submit" value="Post Comment" id="submit-comment" name="submit">
+                                            </p>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="comment single_comment">
+                                <div class="comment-container comment-box">
+                                    <div class="trees_number">1</div>
+
+                                    <div class="comment_content">
+                                        <h4 class="author_name"><a href="#">@item.Comment.User.FullName</a></h4>
+                                        <span class="comment_meta">
+                                            <a href="#">
+                                                <time datetime="2015-10-01T19:56:36+00:00">@item.Comment.CommentDate</time>
+                                            </a>
+                                        </span>
+                                        <div class="comment_said_text">
+                                            <p>@item.Comment.Text</p>
+                                        </div>
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            @*<a href="#commentform" class="comment-reply-link">Reply</a>*@
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- End Comment -->
+
+                            <ol class="children">
+                                <li class="comment single_comment">
+                                    <!-- Comment -->
+                                    <div class="comment-container comment-box">
+                                        <div class="trees_number">1.1.1</div>
+
+                                        <div class="comment_content">
+                                            <h4 class="author_name"><a href="#">@item.Comment.Replies.FirstOrDefault(x => x.Comment_ID == item.Comment.Id).User.FullName</a></h4>
+                                            <span class="comment_meta">
+                                                <a href="#">
+                                                    <time datetime="2015-10-01T19:56:36+00:00">@item.Comment.Replies.FirstOrDefault(x => x.Comment_ID == item.Comment.Id).ReplyDate</time>
+                                                </a>
+                                            </span>
+                                            <div class="comment_said_text">
+                                                <p>@item.Comment.Replies.FirstOrDefault(x => x.Comment_ID == item.Comment.Id).Text</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- End Comment -->
+
+
+
+                                </li>
+                            </ol>
+
+
+
+
+                        }
+
+
+                    }
+
+                }
+
+
+            </ol>
+
+
+            <div class="comments-form-area" id="comments-form">
+                <div class="comment-respond" id="respond">
+
+                    <div class="small_title">
+                        <span class="small_title_con">
+                            <span class="s_icon"><i class="ico-pencil6"></i></span>
+                            <span class="s_text">Leave A Comment</span>
+                        </span>
+                    </div>
+                    <form class="comment-form" id="commentform" method="post" action="/Admin/User/guestComment">
+                        <!-- <p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p> -->
+                        <input type="text" aria-required="true" size="30" value="" placeholder="Name (required)" name="FullName" id="FullName">
+                        <input type="text" aria-required="true" size="30" value="" placeholder="Email (required)" name="Email" id="Email">
+                        <input type="text" aria-required="true" size="30" value="@Model.Id" name="Article_ID" id="Article_ID" hidden="hidden">
+                        <p class="comment-form-comment">
+                            <textarea aria-required="true" rows="8" cols="45" name="Text" placeholder="Comment..." id="Text"></textarea>
+                        </p>
+                        <p class="form-submit">
+                            <input class="send_button" type="submit" value="Post Comment" id="submit-comment" name="submit">
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+
+            <!-- End Comments Form -->
+        </div>
+        <!-- End Comments Container -->
+    </div>
+    <!-- End blog List -->
+</div>
+
+<script>
+    function toggleDocs(event) {
+
+        if (event.target && event.target.className == 'comment-reply-link') {
+
+            var next = event.target.nextElementSibling;
+
+
+            if (next.style.display == "none") {
+                next.style.display = "block";
+
+            } else {
+                next.style.display = "none";
+            }
+        }
+    }
+
+    document.addEventListener('click', toggleDocs, true);
+</script>

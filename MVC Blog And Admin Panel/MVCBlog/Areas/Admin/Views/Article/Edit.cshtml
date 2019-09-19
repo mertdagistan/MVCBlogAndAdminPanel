@@ -1,0 +1,90 @@
+﻿@using MVCBlog.Entity.ViewModel
+@using MVCBlog.Entity.Models
+@model ArticleViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/Areas/Admin/Content/newckeditor/ckeditor/ckeditor.js"></script>
+@*<script src="~/Areas/Admin/Content/ckeditor/ckeditor.js"></script>*@
+<h2>Edit</h2>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.8.2.js"></script>
+<script type="text/javascript">
+    function imagepreview(input) {
+        if (input.files && input.files[0]) {
+            var filerd = new FileReader();
+            filerd.onload = function (e) {
+                $('#imgpreview').attr('src', e.target.result);
+            };
+            filerd.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+@using (Html.BeginForm("Edit", "Article", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Article.Id)
+    <div class="form-row">
+        <div class="form-group col-md-5 mr-5">
+
+            <h4><span class="label label-primary" style="color:black">Title</span></h4>
+            <div style="width:100%">
+                @Html.EditorFor(model => Model.Article.Title, new { htmlAttributes = new { @class = "w-100" } })
+            </div>
+            <p>
+                <code>max-length</code> set to 80.
+            </p>
+
+            @Html.ValidationMessageFor(model => model.Article.Title, "", new { @class = "text-danger" })
+
+
+
+            <div class="form-group">
+                <h4><label for="exampleFormControlSelect2" style="color: black">Category</label></h4>
+                @Html.DropDownListFor(model => model.Article.Category_ID, Model.CategoryList, new { @class = "w-100" })
+
+            </div>
+
+            <div class="form-group">
+                <h4><label for="exampleFormControlSelect2" style="color: black">Show</label></h4>
+                @Html.DropDownListFor(model => model.Article.IsActive, Model.ActiveList, new { @class = "w-100" })
+
+            </div>
+
+
+
+            <div class="form-group">
+                <h4><label for="exampleFormControlSelect2" style="color: black">Media</label></h4>
+                <input type="file" id="photo" onchange="imagepreview(this);" name="photo" />
+                <img src="~/Upload/@Model.Article.MediaUrl" id="imgpreview" style="max-width:600px" />
+
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <h4><span class="label label-primary " style="color:black">Content</span></h4>
+
+            @Html.TextAreaFor(model => model.Article.Text, new { @class = "ckeditor" })
+            @Html.ValidationMessageFor(model => model.Article.Text, "", new { @class = "text-danger" })
+
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" style="width:110px" class="btn btn-success ml-1"><i class="fas fa-save"></i> Save</button>
+        </div>
+    </div>
+}
+
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

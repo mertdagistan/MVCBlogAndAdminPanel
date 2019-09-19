@@ -1,0 +1,23 @@
+﻿
+<h2>
+    These comments are waiting for your
+</h2>
+
+<table class="table table-hover">
+    <tr>
+        <td>Comment</td>
+        <td>Comment Date</td>
+        <td>User</td>
+        <td></td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.Text</th>
+            <th>@item.CommentDate</th>
+            <th>@item.User.FullName</th>
+            <th><a href="/Home/Details/@item.Article.Id" class="btn btn-success" target="_blank">Show</a></th>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MVCBlog.Entity.Models.Category>
+@{
+    ViewBag.Title = "Category List";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<center>
+    <div>
+        <h2 style="color:black">Active Category List</h2>
+    </div>
+</center>
+
+
+<table class="table table-hover" style="color:black">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Category Name</th>
+            <th scope="col">Create Date</th>
+            <th scope="col">SETTINGS</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+
+                <td><a href="/Admin/Article/ArtList/@item.CategoryId">@Html.DisplayFor(t => item.CategoryName)</a>
+                    
+                </td>
+
+                <td>
+                    @Html.DisplayFor(t => item.CreateDate)
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Settings
+                        </button>
+                        <center>
+                            <div class="dropdown-menu" style="width:100px !important">
+                                <div class="dropdown-divider"></div>
+                                <center><a class="btn btn-warning" style="width:100px" href="/Admin/Category/Edit/@item.CategoryId"><i class="fas fa-edit"></i> Edit</a></center>
+                                <div class="dropdown-divider"></div>
+                                <center><a class="btn btn-danger" style="width:100px" href="/Admin/Category/Delete/@item.CategoryId"><i class="fas fa-trash-alt"></i> Delete</a></center>
+                            </div>
+                        </center>
+                    </div>
+                </td>
+
+                
+
+            </tr>
+
+
+        }
+    </tbody>
+</table>
